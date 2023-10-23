@@ -1,12 +1,12 @@
 package com.github.l1an.yuspawnerhologram.internal.core.mythichologram
 
-import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs
-import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig
+import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
+import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
 import com.github.l1an.yuspawnerhologram.internal.manager.HologramTextContainer
 import com.github.l1an.yuspawnerhologram.internal.manager.HologramType
-import com.github.l1an.yuspawnerhologram.util.MythicHologramUtils
-import com.github.l1an.yuspawnerhologram.util.TimeUtils
-import com.github.l1an.yuspawnerhologram.util.Utils
+import com.github.l1an.yuspawnerhologram.internal.util.MythicHologramUtils.getDisplayNameFromConfigs
+import com.github.l1an.yuspawnerhologram.util.TimeUtils.secondToFormat
+import com.github.l1an.yuspawnerhologram.util.Utils.getConfigKeys
 import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI
 import me.filoghost.holographicdisplays.api.hologram.Hologram
 import org.bukkit.Bukkit
@@ -26,13 +26,13 @@ object HolographicHologram {
      * @author L1An
      * @since 2023/10/21
      */
-    fun createAllHologramByHD(sender : CommandSender, plugin : String) {
+    fun createAllHologramByHD(sender : CommandSender) {
         mirrorNow("Initialize Holograms") {
-            val keys = Utils.getConfigKeys(YuSpawnerHologramConfig.config, "hologramText")
+            val keys = getConfigKeys(config, "hologramText")
             var createdHologramsCount = 0 // 用于跟踪成功创建的hologram的数量
 
             for (spawnerName in keys) {
-                val hologram = createHologram(spawnerName)
+                val hologram = createHologramByHD(spawnerName)
                 if (hologram != null) {
                     createdHologramsCount++  // 成功创建hologram，增加计数器
                 }
@@ -48,40 +48,35 @@ object HolographicHologram {
      * @author L1An
      * @since 2023/10/21
      */
-    private fun createHologram(name : String, sender : CommandSender = Bukkit.getConsoleSender()) : Hologram? {
+    private fun createHologramByHD(name : String, sender : CommandSender = Bukkit.getConsoleSender()) : Hologram? {
         if (holograms.containsKey(name)) {
             // 名字已存在
             sender.sendLang("spawner-already-exist", name)
             return null
         }
-        if (HologramEnter.holographicDisplays != null) {
-            val spawner = HookMythicMobs.getSpawnerManager(name)
+        val spawner = getSpawnerManager(name)
 
-            // 若 spawner 不存在则返回 null
-            if (spawner == null) {
-                sender.sendLang("no-spawner", name)
-                return null
-            }
-
-            // 若 hologram 已存在则返回 null
-            if (holograms.containsKey(name)) {
-                sender.sendLang("spawner-already-exist", name)
-                return null
-            }
-
-            // 创建 hologram
-            val world = Bukkit.getWorld(spawner.worldName)
-            val location = Location(world, spawner.location.x, spawner.location.y + 3, spawner.location.z)
-            val hologram = HolographicDisplaysAPI.get(HologramEnter.YuSpawnerHologram).createHologram(location)
-
-            // 存储并返回 hologram
-            holograms[name] = hologram
-            refreshHologramText(name)
-            return hologram
-        } else {
-            sender.sendLang("hd-not-found")
+        // 若 spawner 不存在则返回 null
+        if (spawner == null) {
+            sender.sendLang("no-spawner", name)
             return null
         }
+
+        // 若 hologram 已存在则返回 null
+        if (holograms.containsKey(name)) {
+            sender.sendLang("spawner-already-exist", name)
+            return null
+        }
+
+        // 创建 hologram
+        val world = Bukkit.getWorld(spawner.worldName)
+        val location = Location(world, spawner.location.x, spawner.location.y + 3, spawner.location.z)
+        val hologram = HolographicDisplaysAPI.get(HologramEnter.YuSpawnerHologram).createHologram(location)
+
+        // 存储并返回 hologram
+        holograms[name] = hologram
+        refreshHologramTextByHD(name)
+        return hologram
     }
 
     /**
@@ -116,10 +111,10 @@ object HolographicHologram {
      * @author L1An
      * @since 2023/10/22
      */
-    fun refreshHologram(name : String, sender : CommandSender) {
+    fun refreshHologramByHD(name : String, sender : CommandSender) {
         mirrorNow("Refresh Hologram") {
             deleteHologram(name)
-            val hologram = createHologram(name, sender)
+            val hologram = createHologramByHD(name, sender)
             if (hologram != null) {
                 sender.sendLang("holo-refresh-success", name)
             } else {
@@ -134,36 +129,29 @@ object HolographicHologram {
      * @author L1An
      * @since 2023/10/21
      */
-    private fun refreshHologramText(name : String) : Boolean {
-        val spawner = HookMythicMobs.getSpawnerManager(name)
-        if (spawner != null) {
-            val texts = getHologramText(
-                YuSpawnerHologramConfig.config,
-                "hologramText",
-                name,
-                MythicHologramUtils.getDisplayNameFromConfigs(spawner.typeName)!!,
-                spawner.cooldownSeconds,
-                spawner.warmupSeconds
-            )
+    private fun refreshHologramTextByHD(name : String) : Boolean {
+        val spawner = getSpawnerManager(name)!!
+        val texts = getHologramText(
+            config,
+            name,
+            getDisplayNameFromConfigs(spawner.typeName)!!,
+            spawner.warmupSeconds
+        )
 
-            // 错误检查: 检查获取的文本是否为空
-            if (texts.isEmpty()) {
-                println("Error: 从${name}获取到的文本是空的")
+        // 错误检查: 检查获取的文本是否为空
+        if (texts.isEmpty()) {
+            println("Error: 从${name}获取到的文本是空的")
+        }
+
+        val hologram = holograms[name]
+        if (hologram != null) {
+            val lines = hologram.lines
+            lines.clear()
+
+            for (text in texts) {
+                lines.appendText(text)
             }
-
-            val hologram = holograms[name]
-            if (hologram != null) {
-                val lines = hologram.lines
-                lines.clear()
-
-                for (text in texts) {
-                    lines.appendText(text)
-                }
-                return true
-            }
-        } else {
-            // 错误检查: 如果 spawner 不存在，则打印错误
-            println("Error: 未找到名为 $name 的 spawner")
+            return true
         }
         return false
     }
@@ -182,13 +170,11 @@ object HolographicHologram {
      */
     private fun getHologramText(
         config : Configuration,
-        section : String,
         key : String,
         mobName : String,
-        cooldownSeconds : Int,
         warmupSeconds : Int
     ) : List<String> {
-        return getHologramTextWithInfo(config, section, key, mobName, cooldownSeconds, warmupSeconds).map { it.text }
+        return getHologramTextWithInfo(config, key, mobName, warmupSeconds).map { it.text }
     }
 
     /**
@@ -203,20 +189,16 @@ object HolographicHologram {
      */
     fun getHologramTextWithInfo(
         config : Configuration,
-        section : String,
         key : String,
         mobName : String,
-        cooldownSeconds : Int,
         warmupSeconds : Int
     ) : List<HologramTextContainer> {
-        val cooldown = TimeUtils.secondToFormat(config, cooldownSeconds, "durationFormat")
-        val warmup = TimeUtils.secondToFormat(config, warmupSeconds, "durationFormat")
-        val texts = config.getStringList("$section.$key") ?: listOf()
+        val warmup = secondToFormat(config, warmupSeconds, "durationFormat")
+        val texts = config.getStringList("hologramText.$key") ?: listOf()
 
         return texts.map {
             val modifiedText = it.replace("%name%", mobName).replace("&", "§")
             when {
-                modifiedText.contains("%cooldown%") -> HologramTextContainer(modifiedText.replace("%cooldown%", cooldown), HologramType.COOLDOWN)
                 modifiedText.contains("%warmup%") -> HologramTextContainer(modifiedText.replace("%warmup%", warmup), HologramType.WARMUP)
                 else -> HologramTextContainer(modifiedText, HologramType.NEUTRAL)
             }

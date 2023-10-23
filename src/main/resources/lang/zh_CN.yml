@@ -2,6 +2,10 @@ command-reload: ' &f|  &bYuSpawnerHologram  &f| &a插件已重载成功'
 debug-mode: ' &f|  &bYuSpawnerHologram  &f| &cDebug模式已启动!!!'
 
 dependency-found: ' &f|  &bYuSpawnerHologram  &f| &a检测到 &e{0} &a插件，已启用 &e{0} &a兼容!'
-dependency-not-found: ' &f|  &bYuSpawnerHologram  &f| &c未检测到任何依赖!'
+dependency-not-found: ' &f|  &bYuSpawnerHologram  &f| &c未检测到任何依赖! 插件已关闭!'
 
 holo-refresh-all-success: ' &f|  &bYuSpawnerHologram  &f| &a成功! 已从配置文件刷新所有 Hologram, 共&e{0}&a个'
+holo-refresh-success: ' &f|  &bTOBCore  &f| &a成功! 已刷新 Hologram: &e{0}'
+holo-refresh-fail: ' &f|  &bTOBCore  &f| &c失败! 未找到 Hologram: &e{0}'
+spawner-already-exist: ' &f|  &bYuSpawnerHologram  &f| &c该 Spawner 对应的 Hologram 已存在! ({0})'
+no-spawner: ' &f|  &bTOBCore  &f| &c未找到 Spawner: {0}!'

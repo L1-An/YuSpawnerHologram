@@ -1,5 +1,6 @@
 package com.github.l1an.yuspawnerhologram.internal.core.mythichologram
 
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.createAllHologramByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.createAllHologramByHD
 import me.filoghost.holographicdisplays.api.hologram.Hologram
 import org.bukkit.Bukkit
@@ -22,20 +23,21 @@ object HologramEnter {
         when {
             /**
             adyeshach != null -> {
-                console().sendLang("found-dependency", "Adyeshach")
-                createAllHologram(Bukkit.getConsoleSender(), "Adyeshach")
-            }
-            decentHolograms != null -> {
-                console().sendLang("found-dependency", "DecentHolograms")
-                createAllHologram(Bukkit.getConsoleSender(), "DecentHolograms")
+                console().sendLang("dependency-found", "Adyeshach")
+                createAllHologramByADY(Bukkit.getConsoleSender())
             }
             */
+            decentHolograms != null -> {
+                console().sendLang("dependency-found", "DecentHolograms")
+                createAllHologramByDH(Bukkit.getConsoleSender())
+            }
             holographicDisplays != null -> {
                 console().sendLang("dependency-found", "HolographicDisplays")
-                createAllHologramByHD(Bukkit.getConsoleSender(), "HolographicDisplays")
+                createAllHologramByHD(Bukkit.getConsoleSender())
             }
             else -> {
                 console().sendLang("dependency-not-found")
+                Bukkit.getPluginManager().disablePlugin(YuSpawnerHologram)
             }
         }
     }

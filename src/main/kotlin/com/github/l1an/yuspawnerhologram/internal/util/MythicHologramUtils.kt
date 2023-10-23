@@ -1,4 +1,4 @@
-package com.github.l1an.yuspawnerhologram.util
+package com.github.l1an.yuspawnerhologram.internal.util
 
 import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config

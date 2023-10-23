@@ -1,6 +1,6 @@
 package com.github.l1an.yuspawnerhologram.internal.compat.hook
 
-import com.github.l1an.yuspawnerhologram.util.MythicHologramUtils.getSpawnerWarmupTextForPAPI
+import com.github.l1an.yuspawnerhologram.internal.util.MythicHologramUtils.getSpawnerWarmupTextForPAPI
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
 import taboolib.platform.compat.PlaceholderExpansion

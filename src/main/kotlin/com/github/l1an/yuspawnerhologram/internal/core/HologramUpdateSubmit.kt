@@ -2,11 +2,17 @@ package com.github.l1an.yuspawnerhologram.internal.core
 
 import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramByDH
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramTextByDH
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.adyeshach
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.decentHolograms
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.holographicDisplays
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.getHologramTextWithInfo
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.holograms
-import com.github.l1an.yuspawnerhologram.util.MythicHologramUtils.getDisplayNameFromConfigs
+import com.github.l1an.yuspawnerhologram.internal.util.MythicHologramUtils.getDisplayNameFromConfigs
 import com.github.l1an.yuspawnerhologram.util.TimeUtils.secondToFormat
 import com.github.l1an.yuspawnerhologram.internal.manager.HologramType.*
+import com.github.l1an.yuspawnerhologram.util.Utils.getConfigKeys
 import me.filoghost.holographicdisplays.api.hologram.line.TextHologramLine
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
@@ -16,7 +22,15 @@ import taboolib.common5.mirrorNow
 
 object HologramUpdateSubmit {
     @Awake(LifeCycle.ENABLE)
-    fun hologramUpdateTime() {
+    fun hologramUpdateSubmitEnter() {
+        when {
+            // adyeshach != null -> hologramUpdateTimeForADY()
+            decentHolograms != null -> hologramUpdateTimeForDH()
+            holographicDisplays != null -> hologramUpdateTimeForHD()
+        }
+    }
+
+    private fun hologramUpdateTimeForHD() {
         submit(delay = 40, period = 20) {
             mirrorNow("Refresh HologramText") {
                 for ((name, hologram) in holograms.entries) {
@@ -31,10 +45,8 @@ object HologramUpdateSubmit {
                             // 获取 hologram 的每行内容
                             val hologramInfo = getHologramTextWithInfo(
                                 config,
-                                "hologramText",
                                 name,
                                 getDisplayNameFromConfigs(spawnerManager.typeName)!!,
-                                spawnerManager.remainingCooldownSeconds,
                                 spawnerManager.remainingWarmupSeconds
                             )[i]
 
@@ -49,6 +61,9 @@ object HologramUpdateSubmit {
                                         hologramInfo.text.replace("%warmup%", secondToFormat(config, spawnerManager.remainingWarmupSeconds, "durationFormat"))
                                     }
                                 }
+                                NEUTRAL -> {
+                                    line.text = hologramInfo.text
+                                }
                             }
                         }
                     }
@@ -57,6 +72,16 @@ object HologramUpdateSubmit {
         }
     }
 
-    private val activeMsg : String
+    private fun hologramUpdateTimeForDH() {
+        submit(delay = 40, period = 20) {
+            mirrorNow("Refresh HologramText") {
+                for (spawnerName in getConfigKeys(config, "hologramText")) {
+                    refreshHologramTextByDH(spawnerName)
+                }
+            }
+        }
+    }
+
+    val activeMsg : String
         get() = Coerce.toString(config["activeMsg"]).replace("&", "§") ?: "§a激活中"
 }
