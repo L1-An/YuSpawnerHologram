@@ -1,0 +1,25 @@
+# 选择hologram依赖的插件，可选adyeshach, HolographicDisplays, DecentHolograms
+# 请至少安装上述任意一种插件作为前置依赖，依赖的优先级为: adyeshach > DecentHolograms > HolographicDisplays
+dependency: 'adyeshach'
+
+# 时间格式，支持的占位符有: %HH%小时 %mm%分钟 %ss%秒钟
+durationFormat: "&6 %HH% &e时&6 %mm% &e分&6 %ss% &e秒"
+
+# 当 spawner 已生成怪物时显示的文本(替换 %warmup% 行)
+activeMsg: "&a正在进行中..."
+
+# hologram 的文本
+hologramText:
+  # 默认 spawner 信息
+  # %name%为 spawner 召唤出怪物的名称，%warmup% 为 warmup 时间，注：仅目前仅支持使用 warmup，不支持使用 cooldown
+  default: # spawner 的名称
+    - '%name%'
+    - '&c&l重生时间'
+    - '%warmup%'
+papiText:
+  # 默认 spawner 信息
+  default: # spawner 的名称
+    # 当 spawner 已刷出怪物时显示的文本(替换 %warmup% 行)
+    running: "&a正在进行中..."
+    # 当 spawner 未刷出怪物时显示的文本(替换 %warmup% 行)
+    waiting: "%warmup% &c后重生"

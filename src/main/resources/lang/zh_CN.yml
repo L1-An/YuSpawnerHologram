@@ -1,0 +1,7 @@
+command-reload: ' &f|  &bYuSpawnerHologram  &f| &a插件已重载成功'
+debug-mode: ' &f|  &bYuSpawnerHologram  &f| &cDebug模式已启动!!!'
+
+dependency-found: ' &f|  &bYuSpawnerHologram  &f| &a检测到 &e{0} &a插件，已启用 &e{0} &a兼容!'
+dependency-not-found: ' &f|  &bYuSpawnerHologram  &f| &c未检测到任何依赖!'
+
+holo-refresh-all-success: ' &f|  &bYuSpawnerHologram  &f| &a成功! 已从配置文件刷新所有 Hologram, 共&e{0}&a个'
