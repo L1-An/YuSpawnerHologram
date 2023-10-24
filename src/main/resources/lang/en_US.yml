@@ -1,0 +1,13 @@
+# Translate By ChatGPT, please forgive me for any mistakes
+# If you would like to contribute to the translation, please contact me or pull request on GitHub
+
+command-reload: ' &f|  &bYuSpawnerHologram  &f| &aPlugin has been successfully reloaded'
+
+dependency-found: ' &f|  &bYuSpawnerHologram  &f| &aDetected &e{0} &aplugin, &e{0} &acompatibility enabled!'
+dependency-not-found: ' &f|  &bYuSpawnerHologram  &f| &cNo dependencies found! Plugin has been shut down!'
+
+holo-refresh-all-success: ' &f|  &bYuSpawnerHologram  &f| &aSuccess! All Holograms refreshed from the config file, total &e{0}&a'
+holo-refresh-success: ' &f|  &bYuSpawnerHologram  &f| &aSuccess! Hologram &e{0} &arefreshed'
+holo-refresh-fail: ' &f|  &bYuSpawnerHologram  &f| &cFailure! Hologram &e{0} &anot found'
+spawner-already-exist: " &f|  &bYuSpawnerHologram  &f| &cThe Spawner's corresponding Hologram already exists! ({0})"
+no-spawner: ' &f|  &bYuSpawnerHologram  &f| &cSpawner {0} not found!'

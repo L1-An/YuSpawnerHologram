@@ -71,6 +71,7 @@ object DecentHologram {
             if (hologram != null) {
                 hologram.delete()
                 createHologramByDH(spawnerName, sender)
+                sender.sendLang("holo-refresh-success", spawnerName)
             } else {
                 sender.sendLang("holo-refresh-fail", spawnerName)
             }

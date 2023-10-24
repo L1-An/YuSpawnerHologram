@@ -29,13 +29,11 @@ object HolographicHologram {
     fun createAllHologramByHD(sender : CommandSender) {
         mirrorNow("Initialize Holograms") {
             val keys = getConfigKeys(config, "hologramText")
-            var createdHologramsCount = 0 // 用于跟踪成功创建的hologram的数量
+            var createdHologramsCount = 0 // 用于跟踪成功创建的 hologram 的数量
 
             for (spawnerName in keys) {
                 val hologram = createHologramByHD(spawnerName)
-                if (hologram != null) {
-                    createdHologramsCount++  // 成功创建hologram，增加计数器
-                }
+                if (hologram != null) createdHologramsCount++  // 成功创建hologram，增加计数器
             }
             sender.sendLang("holo-refresh-all-success", createdHologramsCount)
         }

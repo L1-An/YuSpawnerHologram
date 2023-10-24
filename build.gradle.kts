@@ -16,6 +16,7 @@ taboolib {
             name("L1An")
         }
         dependencies {
+            name("MythicMobs").with("bukkit")
             name("PlaceholderAPI").with("bukkit").optional(true)
             name("HolographicDisplays").with("bukkit").optional(true)
             name("DecentHolograms").with("bukkit").optional(true)

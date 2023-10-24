@@ -1,5 +1,6 @@
 package com.github.l1an.yuspawnerhologram.internal.core.mythichologram
 
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.AdyeshachHologram.createAllHologramByADY
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.createAllHologramByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.createAllHologramByHD
 import me.filoghost.holographicdisplays.api.hologram.Hologram
@@ -21,12 +22,10 @@ object HologramEnter {
     @Awake(LifeCycle.ACTIVE)
     fun checkPlugin() {
         when {
-            /**
             adyeshach != null -> {
                 console().sendLang("dependency-found", "Adyeshach")
                 createAllHologramByADY(Bukkit.getConsoleSender())
             }
-            */
             decentHolograms != null -> {
                 console().sendLang("dependency-found", "DecentHolograms")
                 createAllHologramByDH(Bukkit.getConsoleSender())

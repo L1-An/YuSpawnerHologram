@@ -1,8 +1,8 @@
-# Translate From ChatGPT, please forgive me for any mistakes
+# Translate By ChatGPT, please forgive me for any mistakes
 
 # Choose the plugin that hologram depends on, available options: adyeshach, HolographicDisplays, DecentHolograms
 # Please install at least one of the above plugins as a prerequisite dependency
-# The priority of the dependency is: adyeshach > DecentHolograms > HolographicDisplays
+# The priority of the dependency is: Adyeshach > DecentHolograms > HolographicDisplays
 dependency: 'adyeshach'
 
 # Time format, supported placeholders are: %HH% hours %mm% minutes %ss% seconds

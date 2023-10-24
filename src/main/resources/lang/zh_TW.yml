@@ -1,0 +1,13 @@
+# 由ChatGPT翻譯，如有錯誤請諒解
+# 若您想爲翻譯做出貢獻，請聯係我或直接提交PR
+
+command-reload: ' &f|  &bYuSpawnerHologram  &f| &a插件已重新載入成功'
+
+dependency-found: ' &f|  &bYuSpawnerHologram  &f| &a檢測到 &e{0} &a插件，已啟用 &e{0} &a相容!'
+dependency-not-found: ' &f|  &bYuSpawnerHologram  &f| &c未檢測到任何依賴! 插件已關閉!'
+
+holo-refresh-all-success: ' &f|  &bYuSpawnerHologram  &f| &a成功! 已從配置檔刷新所有 Hologram, 共&e{0}&a個'
+holo-refresh-success: ' &f|  &bYuSpawnerHologram  &f| &a成功! 已刷新 Hologram: &e{0}'
+holo-refresh-fail: ' &f|  &bYuSpawnerHologram  &f| &c失敗! 未找到 Hologram: &e{0}'
+spawner-already-exist: ' &f|  &bYuSpawnerHologram  &f| &c該 Spawner 對應的 Hologram 已存在! ({0})'
+no-spawner: ' &f|  &bYuSpawnerHologram  &f| &c未找到 Spawner: {0}!'

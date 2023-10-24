@@ -1,0 +1,13 @@
+# Transformer par ChatGPT, veuillez me pardonner pour toute erreur
+# Si vous souhaitez contribuer à la traduction, contactez-moi ou demandez un pull sur GitHub SVP
+
+command-reload: ' &f|  &bYuSpawnerHologram  &f| &aLe plugin a été rechargé avec succès'
+
+dependency-found: ' &f|  &bYuSpawnerHologram  &f| &aDétection du plugin &e{0} &a, compatibilité avec &e{0} &aactivée!'
+dependency-not-found: ' &f|  &bYuSpawnerHologram  &f| &cAucune dépendance trouvée! Le plugin a été désactivé!'
+
+holo-refresh-all-success: ' &f|  &bYuSpawnerHologram  &f| &aSuccès! Tous les Hologrammes ont été actualisés à partir du fichier de configuration, total &e{0}&a'
+holo-refresh-success: ' &f|  &bYuSpawnerHologram  &f| &aSuccès! Hologramme &e{0} actualisé'
+holo-refresh-fail: ' &f|  &bYuSpawnerHologram  &f| &cÉchec! Hologramme &e{0} introuvable'
+spawner-already-exist: " &f|  &bYuSpawnerHologram  &f| &cL'Hologramme correspondant au Spawner existe déjà! ({0})"
+no-spawner: ' &f|  &bYuSpawnerHologram  &f| &cSpawner {0} introuvable!'

@@ -8,8 +8,4 @@ object YuSpawnerHologramConfig {
     @Config("config.yml")
     lateinit var config: Configuration
         private set
-
-    @ConfigNode("debug")
-    var isDebug = false
-        private set
 }

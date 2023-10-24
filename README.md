@@ -9,15 +9,17 @@
 Dependency: `MythicMobs`  
 SoftDependency: `PlaceholderAPI, HolographicDisplays, DecentHolograms, Adyeshach`
 
+[Spigot link](https://www.spigotmc.org/resources/yuspawnerhologram-%E2%9C%85for-mythicspawner-display-refresh-time-%E2%9C%85intelligent-multilingual-support.113207/)
+
 # Usage
 
 ## Command
 `yuspawnerhologram / spawnerholo / mmholo`
 
 ## PlaceHolder
-|         Placeholder         |    Description     |
-|:---------------------------:|:------------------:|
-| %spawnerholo_{spawnerName}% | 获取指定 spawner 的重生时间 |
+|         Placeholder         |                  Description                   |
+|:---------------------------:|:----------------------------------------------:|
+| %spawnerholo_{spawnerName}% | Gets the respawn time of the specified spawner |
 
 # Building
 

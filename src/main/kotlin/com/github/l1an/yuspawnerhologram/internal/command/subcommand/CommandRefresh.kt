@@ -1,6 +1,7 @@
 package com.github.l1an.yuspawnerhologram.internal.command.subcommand
 
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.AdyeshachHologram.refreshHologramByADY
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.adyeshach
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.decentHolograms
@@ -17,7 +18,7 @@ val CommandRefresh = subCommand {
         val keys = Utils.getConfigKeys(config, "hologramText")
         for (spawnerName in keys) {
             when {
-                //adyeshach != null -> refreshHologramByADY(spawnerName, sender)
+                adyeshach != null -> refreshHologramByADY(spawnerName, sender)
                 decentHolograms != null -> refreshHologramByDH(spawnerName, sender)
                 holographicDisplays != null -> refreshHologramByHD(spawnerName, sender)
                 else -> sender.sendLang("dependency-not-found")
@@ -31,7 +32,7 @@ val CommandRefresh = subCommand {
         execute<CommandSender> { sender, context, _ ->
             val spawnerName = context["spawner id"]
             when {
-                //adyeshach != null -> refreshHologramByADY(spawnerName, sender)
+                adyeshach != null -> refreshHologramByADY(spawnerName, sender)
                 decentHolograms != null -> refreshHologramByDH(spawnerName, sender)
                 holographicDisplays != null -> refreshHologramByHD(spawnerName, sender)
                 else -> sender.sendLang("dependency-not-found")

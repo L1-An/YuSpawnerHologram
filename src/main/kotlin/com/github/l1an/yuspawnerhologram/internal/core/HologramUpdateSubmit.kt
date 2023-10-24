@@ -2,6 +2,7 @@ package com.github.l1an.yuspawnerhologram.internal.core
 
 import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.AdyeshachHologram.refreshHologramTextByADY
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramTextByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.adyeshach
@@ -24,7 +25,7 @@ object HologramUpdateSubmit {
     @Awake(LifeCycle.ENABLE)
     fun hologramUpdateSubmitEnter() {
         when {
-            // adyeshach != null -> hologramUpdateTimeForADY()
+            adyeshach != null -> hologramUpdateTimeForADY()
             decentHolograms != null -> hologramUpdateTimeForDH()
             holographicDisplays != null -> hologramUpdateTimeForHD()
         }
@@ -77,6 +78,16 @@ object HologramUpdateSubmit {
             mirrorNow("Refresh HologramText") {
                 for (spawnerName in getConfigKeys(config, "hologramText")) {
                     refreshHologramTextByDH(spawnerName)
+                }
+            }
+        }
+    }
+
+    private fun hologramUpdateTimeForADY() {
+        submit(delay = 40, period = 20) {
+            mirrorNow("Refresh HologramText") {
+                for (spawnerName in getConfigKeys(config, "hologramText")) {
+                    refreshHologramTextByADY(spawnerName)
                 }
             }
         }
