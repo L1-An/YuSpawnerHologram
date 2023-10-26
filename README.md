@@ -15,6 +15,7 @@ SoftDependency: `PlaceholderAPI, HolographicDisplays, DecentHolograms, Adyeshach
 [SpigotMC](https://www.spigotmc.org/resources/yuspawnerhologram-%E2%9C%85for-mythicspawner-display-refresh-time-%E2%9C%85intelligent-multilingual-support.113207/)  
 [巴哈姆特](https://forum.gamer.com.tw/C.php?bsn=18673&snA=200464&subbsn=14&page=1&s_author=&gothis=1062160#1062160)  
 [Discord](https://discord.com/users/c1oudy_ab)(contact with me)
+[Discord Community](https://discord.gg/SzPBHGttaR)
 
 # Usage
 
