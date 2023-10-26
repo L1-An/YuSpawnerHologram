@@ -6,6 +6,8 @@
 
 > Allows MythicMobs' spawner to visualize warmup time.  
 
+> To facilitate the statistics of download volume, please go to [SpigotMC](https://www.spigotmc.org/resources/yuspawnerhologram-%E2%9C%85for-mythicspawner-display-refresh-time-%E2%9C%85intelligent-multilingual-support.113207/) to download the plugin.
+
 Dependency: `MythicMobs`  
 SoftDependency: `PlaceholderAPI, HolographicDisplays, DecentHolograms, Adyeshach`
 
