@@ -1,13 +1,12 @@
-package com.github.l1an.yuspawnerhologram.internal.core.mythichologram
+package com.github.l1an.yuspawnerhologram.module.decentholograms
 
 import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
-import com.github.l1an.yuspawnerhologram.internal.core.HologramUpdateSubmit
+import com.github.l1an.yuspawnerhologram.internal.core.HologramUpdateSubmit.activeMsg
 import com.github.l1an.yuspawnerhologram.internal.util.MythicHologramUtils.getDisplayNameFromConfigs
-import com.github.l1an.yuspawnerhologram.util.TimeUtils
+import com.github.l1an.yuspawnerhologram.util.TimeUtils.secondToFormat
 import com.github.l1an.yuspawnerhologram.util.Utils.getConfigKeys
-import ink.ptms.adyeshach.core.Adyeshach
-import ink.ptms.adyeshach.core.AdyeshachHologram
+import eu.decentsoftware.holograms.api.DHAPI
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.CommandSender
@@ -16,61 +15,49 @@ import taboolib.module.configuration.Configuration
 import taboolib.platform.util.sendLang
 
 /**
- * 处理为 Adyeshach 支持的 Hologram
+ * 处理为 DecentHolograms 支持的 Hologram
  * @author L1An
  * @since 2023/10/24
  */
-object AdyeshachHologram {
-    // 创建一个 map 用于存储 AdyeshachHologram 和其 name
-    private val holograms = mutableMapOf<String, AdyeshachHologram>()
-    private val api = Adyeshach.api().getHologramHandler()
-
+object DecentHologram {
     /**
      * 从配置文件中创建所有 hologram
-     * @return 创建出 hologram 并将其存入 Map : holograms 中
+     * @return 创建出 hologram 并返回信息
      */
-    fun createAllHologramByADY(sender : CommandSender) {
+    fun createAllHologramByDH(sender : CommandSender) {
         mirrorNow("Initialize Holograms") {
             val keys = getConfigKeys(config, "hologramText")
-            var createdHologramCount = 0 // 用于跟踪成功创建的 hologram 的数量
+            var createdHologramsCount = 0 // 用于跟踪成功创建的hologram的数量
 
             for (spawnerName in keys) {
-                val hologram = createHologramByADY(spawnerName, sender)
-                if (hologram != null) createdHologramCount++
+                createHologramByDH(spawnerName)
+                createdHologramsCount++
             }
-            sender.sendLang("holo-refresh-all-success", createdHologramCount)
+            sender.sendLang("holo-refresh-all-success", createdHologramsCount)
         }
     }
 
     /**
      * 创建 hologram
-     * @param name hologram 的名字
-     * @return 创建出 hologram 并将其存入 Map : hologramsByName 中
+     * @param spawnerName hologram 的名字
+     * @return 创建出 hologram
      */
-    private fun createHologramByADY(name : String, sender : CommandSender = Bukkit.getConsoleSender(), tip : Boolean = true) : AdyeshachHologram? {
-        if (holograms.containsKey(name) && tip) {
-            sender.sendLang("spawner-already-exist", name)
-            return null
-        }
-        val spawner = getSpawnerManager(name)
-
+    private fun createHologramByDH(spawnerName : String, sender : CommandSender = Bukkit.getConsoleSender()) {
+        val spawner = getSpawnerManager(spawnerName)
+        // 若 spawner 不存在则返回 null
         if (spawner == null) {
-            sender.sendLang("no-spawner", name)
-            return null
+            sender.sendLang("no-spawner", spawnerName)
+            return
         }
 
-        val location = Location(Bukkit.getWorld(spawner.worldName), spawner.location.x, spawner.location.y + 2, spawner.location.z)
-        val texts = getHologramTextForADY(
+        val location = Location(Bukkit.getWorld(spawner.worldName), spawner.location.x, spawner.location.y + 3, spawner.location.z)
+        val texts = getHologramTextForDH(
             config,
-            name,
+            spawnerName,
             getDisplayNameFromConfigs(spawner.typeName)!!,
             spawner.remainingWarmupSeconds
         )
-        val hologram = api.createHologram(location, texts)
-
-        // 存储并返回 hologram
-        holograms[name] = hologram
-        return hologram
+        DHAPI.createHologram(spawnerName, location, texts)
     }
 
     /**
@@ -78,12 +65,12 @@ object AdyeshachHologram {
      * @param spawnerName hologram 的名字
      * @return 刷新 hologram 并返回信息
      */
-    fun refreshHologramByADY(spawnerName : String, sender : CommandSender = Bukkit.getConsoleSender(), tip : Boolean = false) {
+    fun refreshHologramByDH(spawnerName : String, sender : CommandSender = Bukkit.getConsoleSender()) {
         mirrorNow("Refresh Hologram") {
-            val hologram = holograms[spawnerName]
+            val hologram = DHAPI.getHologram(spawnerName)
             if (hologram != null) {
-                hologram.remove()
-                createHologramByADY(spawnerName, sender, tip)
+                hologram.delete()
+                createHologramByDH(spawnerName, sender)
                 sender.sendLang("holo-refresh-success", spawnerName)
             } else {
                 sender.sendLang("holo-refresh-fail", spawnerName)
@@ -95,16 +82,18 @@ object AdyeshachHologram {
      * 刷新 hologram 的内容
      * @param spawnerName hologram 的名字
      */
-    fun refreshHologramTextByADY(spawnerName : String) {
-        val hologram = holograms[spawnerName]
+    fun refreshHologramTextByDH(spawnerName: String) {
+        val hologram = DHAPI.getHologram(spawnerName)
         val spawner = getSpawnerManager(spawnerName) ?: return
-        val texts = getHologramTextForADY(
+        val texts = getHologramTextForDH(
             config,
             spawnerName,
             getDisplayNameFromConfigs(spawner.typeName)!!,
             spawner.remainingWarmupSeconds
         )
-        hologram?.updateSafely(texts)
+        if (hologram != null) {
+            DHAPI.setHologramLines(hologram, texts)
+        }
     }
 
     /**
@@ -115,13 +104,13 @@ object AdyeshachHologram {
      * @param warmupSeconds 怪物的预热时间
      * @return 返回 hologram 的文本
      */
-    private fun getHologramTextForADY(
+    private fun getHologramTextForDH(
         config : Configuration,
         key : String,
         mobName : String,
         warmupSeconds : Int
     ) : List<String> {
-        val warmup = TimeUtils.secondToFormat(config, warmupSeconds, "durationFormat")
+        val warmup = secondToFormat(config, warmupSeconds, "durationFormat")
         val texts = config.getStringList("hologramText.$key") ?: listOf()
         val spawner = getSpawnerManager(key)
 
@@ -131,7 +120,7 @@ object AdyeshachHologram {
                 modifiedText = if (spawner?.isOnWarmup == true) {
                     modifiedText.replace("%warmup%", warmup)
                 } else {
-                    modifiedText.replace("%warmup%", HologramUpdateSubmit.activeMsg)
+                    modifiedText.replace("%warmup%", activeMsg)
                 }
             }
             modifiedText

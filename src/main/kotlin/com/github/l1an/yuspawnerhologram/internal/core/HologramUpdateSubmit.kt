@@ -2,14 +2,13 @@ package com.github.l1an.yuspawnerhologram.internal.core
 
 import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.AdyeshachHologram.refreshHologramTextByADY
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramByDH
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramTextByDH
+import com.github.l1an.yuspawnerhologram.module.adyeshach.AdyeshachHologram.refreshHologramTextByADY
+import com.github.l1an.yuspawnerhologram.module.decentholograms.DecentHologram.refreshHologramTextByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.adyeshach
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.decentHolograms
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.holographicDisplays
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.getHologramTextWithInfo
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.holograms
+import com.github.l1an.yuspawnerhologram.module.holographicdisplays.HolographicHologram.getHologramTextWithInfo
+import com.github.l1an.yuspawnerhologram.module.holographicdisplays.HolographicHologram.holograms
 import com.github.l1an.yuspawnerhologram.internal.util.MythicHologramUtils.getDisplayNameFromConfigs
 import com.github.l1an.yuspawnerhologram.util.TimeUtils.secondToFormat
 import com.github.l1an.yuspawnerhologram.internal.manager.HologramType.*
@@ -36,6 +35,9 @@ object HologramUpdateSubmit {
             mirrorNow("Refresh HologramText") {
                 for ((name, hologram) in holograms.entries) {
                     // 获取刷怪管理器
+                    if (getSpawnerManager(name) == null) {
+                        return@mirrorNow
+                    }
                     val spawnerManager = getSpawnerManager(name)!!
 
                     // 获取所有行

@@ -1,9 +1,8 @@
 package com.github.l1an.yuspawnerhologram.internal.core.mythichologram
 
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.AdyeshachHologram.createAllHologramByADY
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.createAllHologramByDH
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.createAllHologramByHD
-import me.filoghost.holographicdisplays.api.hologram.Hologram
+import com.github.l1an.yuspawnerhologram.module.adyeshach.AdyeshachHologram.createAllHologramByADY
+import com.github.l1an.yuspawnerhologram.module.decentholograms.DecentHologram.createAllHologramByDH
+import com.github.l1an.yuspawnerhologram.module.holographicdisplays.HolographicHologram.createAllHologramByHD
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import taboolib.common.LifeCycle

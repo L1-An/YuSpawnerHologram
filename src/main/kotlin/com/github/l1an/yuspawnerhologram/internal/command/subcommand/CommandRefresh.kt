@@ -1,12 +1,12 @@
 package com.github.l1an.yuspawnerhologram.internal.command.subcommand
 
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.AdyeshachHologram.refreshHologramByADY
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.DecentHologram.refreshHologramByDH
+import com.github.l1an.yuspawnerhologram.module.adyeshach.AdyeshachHologram.refreshHologramByADY
+import com.github.l1an.yuspawnerhologram.module.decentholograms.DecentHologram.refreshHologramByDH
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.adyeshach
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.decentHolograms
 import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter.holographicDisplays
-import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HolographicHologram.refreshHologramByHD
+import com.github.l1an.yuspawnerhologram.module.holographicdisplays.HolographicHologram.refreshHologramByHD
 import com.github.l1an.yuspawnerhologram.util.Utils
 import org.bukkit.command.CommandSender
 import taboolib.common.platform.command.subCommand

@@ -1,7 +1,8 @@
-package com.github.l1an.yuspawnerhologram.internal.core.mythichologram
+package com.github.l1an.yuspawnerhologram.module.holographicdisplays
 
 import com.github.l1an.yuspawnerhologram.internal.compat.hook.HookMythicMobs.getSpawnerManager
 import com.github.l1an.yuspawnerhologram.internal.config.YuSpawnerHologramConfig.config
+import com.github.l1an.yuspawnerhologram.internal.core.mythichologram.HologramEnter
 import com.github.l1an.yuspawnerhologram.internal.manager.HologramTextContainer
 import com.github.l1an.yuspawnerhologram.internal.manager.HologramType
 import com.github.l1an.yuspawnerhologram.internal.util.MythicHologramUtils.getDisplayNameFromConfigs
