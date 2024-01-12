@@ -86,6 +86,7 @@ object AdyeshachHologram {
                 createHologramByADY(spawnerName, sender, tip)
                 sender.sendLang("holo-refresh-success", spawnerName)
             } else {
+                createHologramByADY(spawnerName, sender, tip)
                 sender.sendLang("holo-refresh-fail", spawnerName)
             }
         }

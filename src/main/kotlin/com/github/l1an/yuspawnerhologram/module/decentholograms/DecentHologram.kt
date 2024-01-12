@@ -73,6 +73,7 @@ object DecentHologram {
                 createHologramByDH(spawnerName, sender)
                 sender.sendLang("holo-refresh-success", spawnerName)
             } else {
+                createHologramByDH(spawnerName, sender)
                 sender.sendLang("holo-refresh-fail", spawnerName)
             }
         }
