@@ -1,7 +1,9 @@
 package com.github.l1an.yuspawnerhologram.api
 
-import taboolib.common.platform.function.info
+import com.github.l1an.yuspawnerhologram.YuSpawnerHologram.messagePrefix
+import taboolib.common.platform.function.console
 import taboolib.common.platform.function.submit
+import taboolib.module.chat.colored
 import java.io.IOException
 import java.net.URL
 import java.util.*
@@ -20,7 +22,7 @@ class UpdateChecker(private val resourceId: Int) {
                         }
                     }
             } catch (e: IOException) {
-                info("Unable to check for updates: " + e.message)
+                console().sendMessage("$messagePrefix &cUnable to check for update. This may be a problem caused by the network.".colored())
             }
         }
     }
