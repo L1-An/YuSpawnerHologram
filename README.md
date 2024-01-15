@@ -1,3 +1,8 @@
+![Logo](https://raw.githubusercontent.com/L1-An/YuSpawnerHologram/main/.github/images/logo.png)
+
+![GitHub Release](https://img.shields.io/github/v/release/L1-An/YuSpawnerHologram?style=for-the-badge&logo=VirusTotal)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/L1-An/YuSpawnerHologram/main?style=for-the-badge&logo=prisma)
+
 # Powered by TabooLib6
 * [TabooLib6](https://github.com/TabooLib/taboolib)
 
