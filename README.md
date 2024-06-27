@@ -7,7 +7,7 @@
 * [TabooLib6](https://github.com/TabooLib/taboolib)
 
 # Info
-[![wakatime](https://wakatime.com/badge/github/L1-An/YuSpawnerHologram.svg)](https://wakatime.com/badge/github/L1-An/YuSpawnerHologram)
+![wakatime](https://wakatime.com/badge/github/L1-An/YuSpawnerHologram.svg)
 
 > Allows MythicMobs' spawner to visualize warmup time.  
 

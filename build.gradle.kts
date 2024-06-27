@@ -1,7 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
-    id("io.izzel.taboolib") version "1.56"
+    id("io.izzel.taboolib") version "1.60"
     id("org.jetbrains.kotlin.jvm") version "1.5.10"
 }
 
